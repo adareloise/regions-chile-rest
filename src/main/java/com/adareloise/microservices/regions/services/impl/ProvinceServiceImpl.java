@@ -40,7 +40,6 @@ public class ProvinceServiceImpl implements IProvinceService {
 	public ProvinceDto save(ProvinceDto dto, Integer idReg) {
 		
 		Region region = this.regionService.findOne(idReg);
-		dto.setRegion(region);
 		
 		Province entity = new Province();
 		
@@ -49,7 +48,7 @@ public class ProvinceServiceImpl implements IProvinceService {
 		}
 		
 		entity.setName(dto.getName());
-		entity.setRegion(dto.getRegion());
+		entity.setRegion(region);
 		
 		iProvince.save(entity);
 		
@@ -58,22 +57,18 @@ public class ProvinceServiceImpl implements IProvinceService {
 
 	@Override
 	public ProvinceDto findOneDto(Integer id) throws ProvinceNotFoundException{
-		Province entity = iProvince.findById(id).orElse(null);
+		Province entity = this.findById(id);
 		ProvinceDto dto = new ProvinceDto();
-		
-		if (entity == null )
-			throw new ProvinceNotFoundException
-				("La provincia ID: ".concat(id.toString().concat(" no fue encontrada")));
-		
+			
 		dto.setId(entity.getId());
 		dto.setName(entity.getName());
-		dto.setRegion(entity.getRegion());
+		dto.setCommunes(entity.getCommunes());
 		
 		return dto;
 	}
 	
 	@Override
-	public Province findOne(Integer id) throws ProvinceNotFoundException{
+	public Province findById(Integer id) throws ProvinceNotFoundException{
 		Province province = iProvince.findById(id).orElse(null);
 		if (province == null )
 			throw new ProvinceNotFoundException

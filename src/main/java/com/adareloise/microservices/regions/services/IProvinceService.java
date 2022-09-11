@@ -12,7 +12,7 @@ public interface IProvinceService {
 	
 	public ProvinceDto save(ProvinceDto dto, Integer idReg);
 	
-	public Province findOne(Integer id);
+	public Province findById(Integer id);
 	
 	public ProvinceDto findOneDto(Integer id);
 		

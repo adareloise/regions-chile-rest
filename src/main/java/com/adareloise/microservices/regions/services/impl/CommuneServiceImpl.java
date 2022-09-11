@@ -39,7 +39,7 @@ public class CommuneServiceImpl implements ICommuneService {
 	@Transactional()
 	public CommuneDto save(CommuneDto dto, Integer IdProv) {
 		
-		Province province = this.provinceService.findOne(IdProv);
+		Province province = this.provinceService.findById(IdProv);
 		dto.setProvince(province);
 		
 		Commune entity = new Commune();

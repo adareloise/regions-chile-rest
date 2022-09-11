@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,9 @@ import com.adareloise.microservices.regions.model.dto.ProvinceDto;
 import com.adareloise.microservices.regions.services.IProvinceService;
 
 @RestController
+
+@CrossOrigin(origins = {"http://localhost:8081", "http://localhost:8082"})
+
 @RequestMapping(value = "/provinces", method = RequestMethod.GET)
 public class ProvinceRestController {
 
@@ -40,7 +44,7 @@ public class ProvinceRestController {
 		Map<String, Object> response = new HashMap<>();
 		List<Province> provinces = this.provinceService.findAll();
 
-		response.put("msj", "Consulta existosa");
+		response.put("msg", "Consulta existosa");
 		response.put("provinces", provinces);
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
@@ -54,11 +58,11 @@ public class ProvinceRestController {
 	 */
 	@GetMapping("/show/{id}")
 	public ResponseEntity<?> show(@PathVariable Integer id) {
-		Province province = provinceService.findOne(id);
+		ProvinceDto province = provinceService.findOneDto(id);
 
 		Map<String, Object> response = new HashMap<>();
 
-		response.put("msj", "Consulta existosa");
+		response.put("msg", "Consulta existosa");
 		response.put("province", province);
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
@@ -79,13 +83,13 @@ public class ProvinceRestController {
 		try {
 			ProvinceDto commune = this.provinceService.save(item, idReg);
 			
-			response.put("msj", "Comuna creada");
+			response.put("msg", "Comuna creada");
 			response.put("commune", commune);
 			
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 		
 		} catch (DataAccessException e) {
-			response.put("msj", "Error de insercion");
+			response.put("msg", "Error de insercion");
 			response.put("error", e);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -113,13 +117,13 @@ public class ProvinceRestController {
 				provinces.add(this.provinceService.save(province, idReg));
 			}
 			
-			response.put("msj", "Comunas creadas");
+			response.put("msg", "Comunas creadas");
 			response.put("communes", provinces);
 			
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 		
 		} catch (DataAccessException e) {
-			response.put("msj", "Error de insercion");
+			response.put("msg", "Error de insercion");
 			response.put("error", e);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}	
@@ -140,13 +144,13 @@ public class ProvinceRestController {
 		try {
 			ProvinceDto commune = this.provinceService.save(item, idReg);
 			
-			response.put("msj", "Comuna creada");
+			response.put("msg", "Comuna creada");
 			response.put("commune", commune);
 			
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 		
 		} catch (DataAccessException e) {
-			response.put("msj", "Error de insercion");
+			response.put("msg", "Error de insercion");
 			response.put("error", e);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -163,7 +167,7 @@ public class ProvinceRestController {
 		ProvinceDto province = provinceService.delete(id);
 		Map<String, Object> response = new HashMap<>();
 
-		response.put("msj", "Provincia eliminada");
+		response.put("msg", "Provincia eliminada");
 		response.put("province", province);
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);

@@ -37,6 +37,6 @@ public class Region {
 			fetch = FetchType.LAZY,  
 			orphanRemoval = true)
 	@JsonManagedReference
-	private List<Province> provinces = new ArrayList<>();
+	private List<Province> provinces = new ArrayList<>();	
 
 }

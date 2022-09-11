@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +24,11 @@ import com.adareloise.microservices.regions.model.dto.RegionDto;
 import com.adareloise.microservices.regions.services.IRegionService;
 
 @RestController
+
+@CrossOrigin(origins = {"http://localhost:8081", "http://localhost:8082"})
+
 @RequestMapping(value = "/regions", method = RequestMethod.GET)
+
 public class RegionRestController {
 
 	@Autowired
@@ -46,7 +51,6 @@ public class RegionRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}	
 
-
 	 /**
      * Get region by id.
      *
@@ -59,7 +63,7 @@ public class RegionRestController {
 		
 		Map<String, Object> response = new HashMap<>();
 
-		response.put("msj", "Consulta existosa");
+		response.put("msg", "Consulta existosa");
 		response.put("region", region);
 		
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
@@ -80,13 +84,13 @@ public class RegionRestController {
 			
 			RegionDto region = this.regionService.save(item);
 			
-			response.put("msj", "Comuna creada");
+			response.put("msg", "Comuna creada");
 			response.put("region", region);
 			
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 		
 		} catch (DataAccessException e) {
-			response.put("msj", "Error de insercion");
+			response.put("msg", "Error de insercion");
 			response.put("error", e);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -108,13 +112,13 @@ public class RegionRestController {
 			
 			RegionDto region = this.regionService.save(item);
 			
-			response.put("msj", "Comuna creada");
+			response.put("msg", "Comuna creada");
 			response.put("region", region);
 			
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 		
 		} catch (DataAccessException e) {
-			response.put("msj", "Error de insercion");
+			response.put("msg", "Error de insercion");
 			response.put("error", e);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -131,7 +135,7 @@ public class RegionRestController {
 		RegionDto region = regionService.delete(id);
 		Map<String, Object> response = new HashMap<>();
 		
-		response.put("msj", "Region eliminado");
+		response.put("msg", "Region eliminado");
 		response.put("region", region);
 		
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
