@@ -63,6 +63,7 @@ public class ProvinceServiceImpl implements IProvinceService {
 		dto.setId(entity.getId());
 		dto.setName(entity.getName());
 		dto.setCommunes(entity.getCommunes());
+		dto.setRegion(entity.getRegion().getName());
 		
 		return dto;
 	}

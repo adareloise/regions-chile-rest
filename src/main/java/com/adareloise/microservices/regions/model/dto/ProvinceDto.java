@@ -19,6 +19,6 @@ public class ProvinceDto {
 	private Integer id;
 	private String name;
 	private List<Commune> communes = new ArrayList<>();
-	private RegionDto region;
+	private String region;
 
 }
