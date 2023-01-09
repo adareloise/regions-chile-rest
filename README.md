@@ -1,3 +1,3 @@
 # regions-chile-rest
 
-Api rest for Regions, province and commune in Chile.
+Api rest division geografic in Chile.
